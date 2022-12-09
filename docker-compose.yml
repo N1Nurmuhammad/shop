@@ -21,19 +21,19 @@ services:
     env_file:
        - .env
 
-  nginx:
-   build:
-     context: .
-     dockerfile: nginx/Dockerfile
-   volumes:
-      - ./media:/media
-      - ./static:/static
-      - ./media_cdn:/media_cdn
-      - ./static_cdn:/static_cdn
-   ports:
-     - "80:80" 
-   depends_on:
-     - app
+#  nginx:
+#   build:
+#     context: .
+#     dockerfile: nginx/Dockerfile
+#   volumes:
+#      - ./media:/media
+#      - ./static:/static
+#      - ./media_cdn:/media_cdn
+#      - ./static_cdn:/static_cdn
+#   ports:
+#     - "80:80"
+#   depends_on:
+#     - app
   dbdata:
     image: postgres
     container_name: dbdata

@@ -1,4 +1,3 @@
-from re import A
 from django.db.models import Q
 from api.v1.ad.filters import AdFilter
 from decouple import config

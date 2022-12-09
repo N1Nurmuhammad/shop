@@ -13,27 +13,23 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'accounts.apps.AccountsConfig',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
-
     'drf_yasg',
     'corsheaders',
     'app.apps.AppConfig',
+    'accounts.apps.AccountsConfig',
+
+    'kredit.apps.KreditConfig',
     'wallet.apps.WalletConfig',
     'django_filters'
-
-
 ]
 AUTH_USER_MODEL = 'accounts.Account'
 
@@ -110,6 +106,7 @@ CORS_ALLOWED_ORIGINS = [
 #         'PORT': 5432,
 #     }
 # }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
