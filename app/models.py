@@ -27,7 +27,7 @@ class AdModel(models.Model):
     # country = models.ForeignKey(CountryModel, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     comment = models.CharField(max_length=255, null=True, blank=True)
-    seen = models.IntegerField()
+    seen = models.IntegerField(default=0)
     ram = models.IntegerField()
     memory = models.IntegerField()
     dicount_price = models.IntegerField()
