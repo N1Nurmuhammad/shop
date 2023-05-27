@@ -2,6 +2,7 @@ import random
 import requests
 from decouple import config
 from django.http import Http404
+import json
 from drf_yasg.utils import swagger_auto_schema
 from passlib.handlers.pbkdf2 import pbkdf2_sha256
 from rest_framework import status
@@ -25,20 +26,26 @@ SMS_URL = config('SMS_URL')
 def step_one(request):
     if request.method == 'POST':
 
-        header = {'Authorization': 'Bearer ' + SMS_AUTH_TOKEN}
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer b80292c6-67ed-4866-b790-f13650e34f1d'
+        }
 
         request_data = request.data
         sms_code = str(random.randint(10000, 99999))
 
-        data = {
-            'mobile_phone': f'{request_data["mobile"]}',
-            'message': f'{sms_code}',
-            'from': '4546',
-            'callback_url': 'http://0000.uz/test.php'
-        }
+        payload = json.dumps({
+            "method": "send",
+            "params": [
+                {
+                    "phone": f"{request_data['mobile']}",
+                    "content": f"Telelon: {sms_code}"
+                }
+            ]
+        })
 
         try:
-            r = requests.post(SMS_URL, json=data, headers=header)
+            r = requests.request("POST", SMS_URL, headers=headers, data=payload)
         except HTTPError:
             raise Http404
 
