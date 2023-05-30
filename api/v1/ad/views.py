@@ -30,12 +30,11 @@ def create_ad(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 @swagger_auto_schema(method="put", tags=["Ad"], request_body=AdSerializer)
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
 def update_ad(request, pk):
-    user =request.user
+    user = request.user
     try:
         ad = AdModel.objects.get(pk=pk)
     except:
@@ -43,7 +42,7 @@ def update_ad(request, pk):
 
     if ad.owner != user:
         return Response(status=status.HTTP_403_FORBIDDEN)
-        
+
     serializer = AdSerializer(ad, data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -51,12 +50,11 @@ def update_ad(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-        
 @swagger_auto_schema(method="delete", tags=["Ad"], request_body=AdSerializer)
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
 def delete_ad(request, pk):
-    user =request.user
+    user = request.user
 
     try:
         ad = AdModel.objects.get(pk=pk)
@@ -81,14 +79,13 @@ def get_ad(request, pk):
         ad = AdModel.objects.get(pk=pk)
     except:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    
+
     serializer = AdSerializer(ad)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-
 @swagger_auto_schema(method="get", tags=["Ad"])
-@api_view(['GET',])
+@api_view(['GET', ])
 def ads_view(request):
     paginator = PageNumberPagination()
     paginator.page_size = 10
@@ -101,14 +98,12 @@ def ads_view(request):
 @swagger_auto_schema(method='POST', tags=['search'], request_body=SearchSerializer)
 @api_view(['POST', ])
 def search_view(request):
-
     a = request.data['word']
     if request.method == 'POST':
-
         snippet = AdModel.objects.all()
         queryset_news = snippet.filter(
             Q(title__icontains=a) |
-            Q(comment__icontains=a)|
+            Q(comment__icontains=a) |
             Q(model__icontains=a))
 
         serializer_ads = AdSerializer(queryset_news, many=True)
@@ -117,6 +112,7 @@ def search_view(request):
         }
 
         return Response(new_data)
+
 
 class AdListFilterView(ListAPIView):
     queryset = AdModel.objects.all()
