@@ -8,9 +8,7 @@ services:
     container_name: app
     restart: always
     command: >
-      sh -c "python manage.py makemigrations && 
-      python manage.py migrate 
-      && python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/usr/src/app
       - ./media:/usr/src/app/media
@@ -44,8 +42,11 @@ services:
     ports:
       - "5432:5432"
     restart: always
-    env_file:
-     - .env
+    environment:
+      POSTGRES_USER: hayat_BOT
+      POSTGRES_DB: hayat_BOT
+      POSTGRES_NAME: hayat_BOT
+      POSTGRES_PASSWORD: hayat_BOT
     volumes:
      - pgdbdata:/var/lib/postgresql/data/
 

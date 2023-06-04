@@ -5,21 +5,30 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from rest_framework.authtoken.models import Token
 from uuid import uuid4
 from wallet.services import create_wallet_util
-from accounts.models.country import CountryModel
 from wallet.models import WalletModel
+
+
+class CountryModel(models.Model):
+    region = models.CharField(max_length=255, blank=True, null=True)
+    district = models.CharField(max_length=255, blank=True, null=True)
+
+    # ad = models.ForeignKey(AdModel, on_delete=models.SET_NULL, null=True, blank=True, related_name='country', )
+
+    def __str__(self):
+        return str(self.region)
+
 
 def upload_location(instance, filename):
     ext = filename.split('.')[-1]
     file_path = 'accounts/avatars/{user_id}-{phone_number}'.format(
         user_id=str(instance.id), phone_number='{}.{}'.format(uuid4().hex, ext))
     return file_path
-    
+
 
 class MyAccountManage(BaseUserManager):
-    def create_user(self, f_name,  phone_number, password=None):
+    def create_user(self, f_name, phone_number, password=None):
         if not phone_number:
             raise ValueError('Users must have number')
 
@@ -48,11 +57,10 @@ class Account(AbstractBaseUser):
     phone_number = models.CharField(max_length=15, unique=True)
     f_name = models.CharField(max_length=50, blank=True, null=True)
     l_name = models.CharField(max_length=50, blank=True, null=True)
-    sex = models.BooleanField(null=True, blank=True) 
+    sex = models.BooleanField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     profile_picture = models.ImageField(upload_to=upload_location, null=True, blank=True)
     country = models.ForeignKey(CountryModel, on_delete=models.SET_NULL, null=True, blank=True)
-
 
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

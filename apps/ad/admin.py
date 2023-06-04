@@ -1,7 +1,7 @@
 from django.contrib import admin
-from app.models import *
+from apps.ad.models import *
 
 admin.site.register(AdModel)
 admin.site.register(FavAdModel)
-admin.site.register(AdPicturModel)
+admin.site.register(AdPictureModel)
 

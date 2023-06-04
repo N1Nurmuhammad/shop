@@ -1,6 +1,6 @@
 from django.db import models
 from django.dispatch import receiver
-from accounts.models.account import Account
+from accounts.models import Account
 from django.db.models.signals import post_save
 import requests
 from django.http import Http404

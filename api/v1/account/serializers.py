@@ -1,6 +1,5 @@
-from dataclasses import fields
-from accounts.models.account import Account
-from accounts.models.country import CountryModel
+from accounts.models import Account
+from accounts.models import CountryModel, PrivacyModel
 from rest_framework import serializers
 from accounts.models.otp import Otp
 
@@ -8,12 +7,11 @@ from accounts.models.otp import Otp
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = CountryModel
-        exclude = ['ad']
-
+        # exclude = ['ad']
+        fields = '__all__'
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
-
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
@@ -47,7 +45,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return account
 
 
-
 class AccountSerializer(serializers.ModelSerializer):
     f_name = serializers.SerializerMethodField('get_f_name_method')
     l_name = serializers.SerializerMethodField('get_l_name_method')
@@ -71,11 +68,12 @@ class AccountSerializer(serializers.ModelSerializer):
             l_name = obj.l_name
         return l_name
 
-class OtpSerializer(serializers.ModelSerializer):
 
+class OtpSerializer(serializers.ModelSerializer):
     class Meta:
         model = Otp
         fields = '__all__'
+
 
 class StepTwoSerializer(serializers.Serializer):
     otp_token = serializers.CharField(max_length=255)
@@ -84,6 +82,11 @@ class StepTwoSerializer(serializers.Serializer):
     class Meta:
         fields = '__all__'
 
+
+class PrivacySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrivacyModel
+        fields = '__all__'
 # class AccountPropertiesSerializers(serializers.ModelSerializer):
 
 #     class Meta:
@@ -125,12 +128,6 @@ class StepTwoSerializer(serializers.Serializer):
 #         instance.is_superuser = False
 #         instance.save()
 #         return instance
-
-
-
-
-
-
 
 
 # class ForgotPasswordSerializer(serializers.ModelSerializer):

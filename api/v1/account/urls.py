@@ -9,7 +9,9 @@ app_name = 'accounts'
 urlpatterns = [
     path('step-one/', step_one, name='step-one'),
     path('step-two/', step_two, name='step-two'),
+    path('privacy/', get_privacy, name='step-two'),
     path('register', registration_view, name='registration'),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+
     
     ]
