@@ -47,3 +47,6 @@ class FavAdModel(models.Model):
 
     def __str__(self):
         return f"{self.owner} - {self.ad}"
+
+    class Meta:
+        unique_together = ['owner', 'ad']
