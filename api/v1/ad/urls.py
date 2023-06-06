@@ -18,4 +18,6 @@ urlpatterns = [
     path('fav-ad-update/<int:pk>', update_fav_ad_view),
     path('fav-ad-delete/<int:pk>', delete_fav_ad_view),
 
+    path('post-viewed-ad/<int:pk>', post_viewed_ad),
+
 ]
