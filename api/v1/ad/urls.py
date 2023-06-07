@@ -11,6 +11,8 @@ urlpatterns = [
     path('search/', search_view, name='search'),
     path('ordering/', AdListFilterView.as_view(), name='filter'),
     path('create-ad/', create_ad, name='create-ad'),
+    path('get-subcategories-view/', get_subcategories_view),
+    path('get-categories-view/', get_categories_view),
 
     path('fav-ad/', get_fav_ad_view),
     path('fav-ad/<int:pk>', get_fav_ad_retrieve_view),

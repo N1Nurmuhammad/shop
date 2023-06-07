@@ -18,6 +18,21 @@ class AdPictureModel(models.Model):
     ad = models.ForeignKey('AdModel', on_delete=models.SET_NULL, null=True, blank=True, related_name='picture', )
 
 
+class CategoriesModel(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class SubCategoriesModel(models.Model):
+    name = models.CharField(max_length=255)
+    category = models.ForeignKey(CategoriesModel, related_name='subcategory', on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class AdModel(models.Model):
     title = models.CharField(max_length=255, null=True, blank=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='ads', on_delete=models.SET_NULL, blank=True,
@@ -25,6 +40,8 @@ class AdModel(models.Model):
     # picture = models.ForeignKey(AdPicturModel, on_delete=models.CASCADE, null=True, blank=True)
     price = models.PositiveIntegerField()
     state = models.CharField(max_length=255, null=True, blank=True)
+    category = models.ForeignKey(CategoriesModel, on_delete=models.SET_NULL, null=True, blank=True)
+    subcategory = models.ForeignKey(SubCategoriesModel, on_delete=models.SET_NULL, null=True, blank=True)
     color = models.CharField(max_length=255, null=True, blank=True)
     quantity = models.PositiveIntegerField(default=1)
     model = models.CharField(max_length=255, null=True, blank=True)

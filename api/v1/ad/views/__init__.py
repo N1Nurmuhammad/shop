@@ -1,1 +1,1 @@
-from .ad import *from .fav_ad import *
+from .ad import *from .fav_ad import *from .category import *
