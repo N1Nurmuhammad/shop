@@ -1,6 +1,4 @@
 from django.db import models
-
-from accounts.models import CountryModel
 from avtoelon import settings
 from uuid import uuid4
 
@@ -11,6 +9,16 @@ def upload_location(instance, filename):
         filename='{}.{}'.format(uuid4().hex, ext)
     )
     return file_path
+
+
+class AdLocationModel(models.Model):
+    latitude = models.CharField(max_length=255, blank=True, null=True)
+    longitude = models.CharField(max_length=255, blank=True, null=True)
+
+    ad = models.ForeignKey("AdModel", on_delete=models.SET_NULL, null=True, blank=True, related_name='location', )
+
+    def __str__(self):
+        return f"{self.ad} - {self.longitude} - {self.latitude}"
 
 
 class AdPictureModel(models.Model):
@@ -45,7 +53,7 @@ class AdModel(models.Model):
     color = models.CharField(max_length=255, null=True, blank=True)
     quantity = models.PositiveIntegerField(default=1)
     model = models.CharField(max_length=255, null=True, blank=True)
-    country = models.ForeignKey(CountryModel, on_delete=models.SET_NULL, null=True)
+    # country = models.ForeignKey(AdLocationModel, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     comment = models.CharField(max_length=255, null=True, blank=True)
     seen = models.IntegerField(default=0)

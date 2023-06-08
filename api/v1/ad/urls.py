@@ -22,4 +22,12 @@ urlpatterns = [
 
     path('post-viewed-ad/<int:pk>', post_viewed_ad),
 
+    path('get-location-ad/<int:pk>', get_ad_location_view),
+    path('delete-location-ad/<int:pk>', delete_ad_location_view),
+    path('ad-location-post/', create_ad_location_view),
+
+    path('get-picture-ad/<int:pk>', get_ad_picture_view),
+    path('delete-picture-ad/<int:pk>', delete_ad_picture_view),
+    path('ad-picture-post/', create_ad_picture_view),
+
 ]

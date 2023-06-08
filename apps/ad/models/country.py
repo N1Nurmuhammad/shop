@@ -1,0 +1,1 @@
+# from django.db import models## from apps.ad.models import AdModel###
