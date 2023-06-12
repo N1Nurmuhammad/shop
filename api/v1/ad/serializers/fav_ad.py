@@ -1,1 +1,1 @@
-from rest_framework import serializersfrom apps.ad.models import FavAdModelclass FavSerializer(serializers.ModelSerializer):    class Meta:        model = FavAdModel        exclude = ['owner']
+from rest_framework import serializersfrom apps.ad.models import FavAdModelfrom .ad import AdSerializerclass FavSerializer(serializers.ModelSerializer):    ad = AdSerializer()    class Meta:        model = FavAdModel        exclude = ['owner']
