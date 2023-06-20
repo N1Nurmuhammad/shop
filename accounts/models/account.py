@@ -107,3 +107,9 @@ def create_wallet(sender, instance=None, created=False, **kwargs):
             card_number=card_number,
             expire=expire,
         )
+
+
+class UserContactsModel(models.Model):
+    owner = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="contacts")
+    phone_number = models.CharField(max_length=20)
+
